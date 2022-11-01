@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div class="container">
+      <h1>Notate book</h1>
+      <nav>
+        <ul>
+          <li><a href="/" role="button"> Go back to the main page </a></li>
+        </ul>
+      </nav>
+      {% with messages = get_flashed_messages() %}
+            {% if messages %}
+              {% for message in messages %}
+               <div class="alert alert-info">{{message}}</div>
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+    {% for n in notates %}
+    <h3>Notate ID:   <small> {{ n.id }} </small></h3>
+    <h3>Notate:      <small> {{ n.notate }} </small></h3>
+    <h3>Tag: </h3>
+        {% for t in n.tag.strip().split() %}
+          <h3><small> {{ t }} </small></h3>
+        {% endfor %}
+        <div class="card-body">
+
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="btn-group">
+              <a class="btn btn-sm btn-outline-secondary" href="/show_notate_book/edit/{{n.id}}"
+                >  Edit  </a
+              >
+              <form action="/show_notate_book/delete/{{n.id}}" method="GET">
+                <button class="btn btn-sm btn-outline-secondary">
+                  Delete
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+{% endblock %}

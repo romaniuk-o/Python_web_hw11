@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div class="container">
+      <h1>RESULT</h1>
+      <nav>
+        <ul>
+          <li><a href="/find_tag_notate" role="button"> Go back to the find page </a></li>
+        </ul>
+      </nav>
+        {% if notates %}
+            {% for n in notates %}
+            <h3>Notate ID:   <small> {{ n.id }} </small></h3>
+            <h3>Notate:      <small> {{ n.notate }} </small></h3>
+            <h3>Tag: </h3>
+                {% for t in n.tag.strip().split() %}
+                  <h3><small> {{ t }} </small></h3>
+                {% endfor %}
+                <div class="card-body">
+
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                      <a class="btn btn-sm btn-outline-secondary" href="/show_notate_book/edit/{{n.id}}"
+                        >edit</a
+                      >
+                      <form action="/show_notate_book/delete/{{n.id}}" method="GET">
+                        <button class="btn btn-sm btn-outline-secondary">
+                          delete
+                        </button>
+                      </form>
+                    </div>
+
+          </div>
+        </div>
+      {% endfor %}
+        {% else %}
+              <h3>Nothing find</h3>
+            {% endif %}
+    </div>
+{% endblock %}
